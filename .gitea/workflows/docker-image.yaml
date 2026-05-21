@@ -53,8 +53,8 @@ jobs:
         uses: https://gitea.cloud.paultibbetts.uk/docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ gitea.actor }}
-          password: ${{ secrets.GITEA_TOKEN }}
+          username: paul
+          password: ${{ secrets.PACKAGE_TOKEN }}
 
       - name: Build and push image
         uses: https://gitea.cloud.paultibbetts.uk/docker/build-push-action@v6
