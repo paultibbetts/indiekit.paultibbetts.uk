@@ -1,0 +1,65 @@
+name: Build Docker image
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: gitea.cloud.paultibbetts.uk
+  IMAGE_NAME: paul/indiekit.paultibbetts.uk
+
+jobs:
+  build:
+    name: Build and publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: https://gitea.cloud.paultibbetts.uk/actions/checkout@v4
+
+      - name: Prepare image tags
+        run: |
+          set -e
+
+          image="${REGISTRY}/${IMAGE_NAME}"
+          tags_file="$(mktemp)"
+          printf "%s\n" "${image}:${GITHUB_SHA}" > "${tags_file}"
+
+          if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
+            printf "%s\n" "${image}:latest" >> "${tags_file}"
+          fi
+
+          case "${GITHUB_REF}" in
+            refs/tags/*)
+              printf "%s\n" "${image}:${GITHUB_REF#refs/tags/}" >> "${tags_file}"
+              ;;
+          esac
+
+          {
+            echo "IMAGE_TAGS<<EOF"
+            cat "${tags_file}"
+            echo "EOF"
+          } >> "${GITHUB_ENV}"
+
+      - name: Log in to Gitea container registry
+        uses: https://gitea.cloud.paultibbetts.uk/docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ gitea.actor }}
+          password: ${{ secrets.GITEA_TOKEN }}
+
+      - name: Build and push image
+        uses: https://gitea.cloud.paultibbetts.uk/docker/build-push-action@v6
+        with:
+          context: .
+          pull: true
+          push: true
+          tags: ${{ env.IMAGE_TAGS }}
