@@ -1,9 +1,9 @@
-name: Build Docker image
+name: Build/check Docker image
 
 on:
   push:
     branches:
-      - main
+      - "**"
     tags:
       - "v*"
   workflow_dispatch:
@@ -18,7 +18,7 @@ env:
 
 jobs:
   build:
-    name: Build and publish
+    name: Build/check image
     runs-on: ubuntu-latest
 
     steps:
@@ -49,17 +49,31 @@ jobs:
             echo "EOF"
           } >> "${GITHUB_ENV}"
 
+          if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
+            echo "PUSH_IMAGE=true" >> "${GITHUB_ENV}"
+          else
+            case "${GITHUB_REF}" in
+              refs/tags/v*)
+                echo "PUSH_IMAGE=true" >> "${GITHUB_ENV}"
+                ;;
+              *)
+                echo "PUSH_IMAGE=false" >> "${GITHUB_ENV}"
+                ;;
+            esac
+          fi
+
       - name: Log in to Gitea container registry
+        if: ${{ env.PUSH_IMAGE == 'true' }}
         uses: https://gitea.cloud.paultibbetts.uk/docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: paul
           password: ${{ secrets.PACKAGE_TOKEN }}
 
-      - name: Build and push image
+      - name: Build image
         uses: https://gitea.cloud.paultibbetts.uk/docker/build-push-action@v6
         with:
           context: .
           pull: true
-          push: true
+          push: ${{ env.PUSH_IMAGE == 'true' }}
           tags: ${{ env.IMAGE_TAGS }}
