@@ -74,6 +74,7 @@ jobs:
         uses: https://gitea.cloud.paultibbetts.uk/docker/build-push-action@v6
         with:
           context: .
+          platforms: linux/amd64
           pull: true
           push: ${{ env.PUSH_IMAGE == 'true' }}
           tags: ${{ env.IMAGE_TAGS }}
