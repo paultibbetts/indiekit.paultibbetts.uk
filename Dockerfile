@@ -10,9 +10,7 @@ ENV NODE_ENV=production
 
 # Install node modules
 COPY package*.json ./
-
-# Can’t use `npm ci` due to https://github.com/npm/cli/issues/4828
-RUN npm i --omit=dev --package-lock=false
+RUN npm ci
 
 # Copy application code
 COPY . .
