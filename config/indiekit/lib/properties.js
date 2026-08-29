@@ -41,5 +41,7 @@ export function getPublishedDate(properties) {
 }
 
 export function getDraftLine(properties) {
-  return properties.postStatus === "draft" ? "draft = true" : ""
+  const postStatus = getFirstValue(properties.postStatus, properties["post-status"])
+
+  return postStatus === "draft" ? "draft = true" : ""
 }

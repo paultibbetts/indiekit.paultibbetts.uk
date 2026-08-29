@@ -3,6 +3,7 @@ import { renderArticle } from "./templates/article.js"
 import { renderBookmark } from "./templates/bookmark.js"
 import { renderLike } from "./templates/like.js"
 import { renderNote } from "./templates/note.js"
+import { renderPhoto } from "./templates/photo.js"
 import { renderReply } from "./templates/reply.js"
 import { renderRsvp } from "./templates/rsvp.js"
 
@@ -20,6 +21,8 @@ export function postTemplate(properties) {
       return renderRsvp(properties)
     case "article":
       return renderArticle(properties)
+    case "photo":
+      return renderPhoto(properties)
     default:
       return renderNote(properties)
   }

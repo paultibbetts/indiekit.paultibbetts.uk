@@ -40,4 +40,11 @@ export const postTypes = {
       url: "{yyyy}/{MM}/{dd}/{slug}/",
     },
   },
+
+  photo: {
+    media: {
+      path: "photos/{filename}",
+      url: "https://media.paultibbetts.uk/photos/{filename}",
+    },
+  },
 }

@@ -1,6 +1,14 @@
 export function detectPostType(properties) {
+  if (properties["post-type"]) {
+    return properties["post-type"]
+  }
+
   if (properties.rsvp) {
     return "rsvp"
+  }
+
+  if (properties.photo) {
+    return "photo"
   }
 
   if (properties["bookmark-of"] || properties.bookmark_of || properties.bookmarkOf) {
