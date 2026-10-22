@@ -1,5 +1,5 @@
 # Adjust NODE_VERSION as desired
-ARG NODE_VERSION=24
+ARG NODE_VERSION=24.17
 FROM node:${NODE_VERSION}-alpine
 
 # Create app directory

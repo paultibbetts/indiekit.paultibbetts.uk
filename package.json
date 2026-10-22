@@ -14,13 +14,16 @@
   "license": "ISC",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=24.17"
   },
   "dependencies": {
-    "@indiekit/indiekit": "^1.0.0-beta.27",
-    "@indiekit/post-type-rsvp": "^1.0.0-beta.25",
-    "@indiekit/preset-hugo": "^1.0.0-beta.25",
-    "@indiekit/store-github": "^1.0.0-beta.27",
+    "@indiekit/indiekit": "^1.0.0-beta.31",
+    "@indiekit/post-type-rsvp": "^1.0.0-beta.30",
+    "@indiekit/preset-hugo": "^1.0.0-beta.30",
+    "@indiekit/store-github": "^1.0.0-beta.30",
     "@indiekit/store-s3": "file:./packages/store-s3"
+  },
+  "volta": {
+    "node": "24.17.0"
   }
 }
