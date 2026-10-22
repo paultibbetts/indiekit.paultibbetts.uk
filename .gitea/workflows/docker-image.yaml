@@ -53,7 +53,7 @@ jobs:
           } >> "${GITHUB_ENV}"
 
       - name: Log in to Gitea container registry
-        uses: https://gitea.cloud.paultibbetts.uk/docker/login-action@v3
+        uses: https://gitea.cloud.paultibbetts.uk/docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: paul
