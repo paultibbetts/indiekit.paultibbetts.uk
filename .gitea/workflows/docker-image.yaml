@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: https://gitea.cloud.paultibbetts.uk/actions/checkout@v4
+        uses: https://gitea.cloud.paultibbetts.uk/actions/checkout@v7
 
       - name: Prepare image tags
         run: |
