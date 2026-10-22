@@ -60,7 +60,7 @@ jobs:
           password: ${{ secrets.PACKAGE_TOKEN }}
 
       - name: Build image
-        uses: https://gitea.cloud.paultibbetts.uk/docker/build-push-action@v6
+        uses: https://gitea.cloud.paultibbetts.uk/docker/build-push-action@v7
         with:
           context: .
           platforms: linux/amd64
