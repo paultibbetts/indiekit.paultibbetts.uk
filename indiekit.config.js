@@ -5,7 +5,8 @@ import { postTypes } from "./config/indiekit/post-types.js"
 
 export default {
   application: {
-    url: "https://indiekit.paultibbetts.uk"
+    url: "https://indiekit.paultibbetts.uk",
+    timeZone: "Europe/London",
   },
 
   plugins: [
