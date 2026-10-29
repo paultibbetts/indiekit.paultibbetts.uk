@@ -24,6 +24,6 @@
     "@indiekit/store-s3": "file:./packages/store-s3"
   },
   "volta": {
-    "node": "24.22.1"
+    "node": "26.13.0"
   }
 }
